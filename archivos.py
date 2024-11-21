@@ -1,7 +1,8 @@
 import csv
 
-# Leer un CSV con encabezados
-with open("datos.csv", "r") as archivo:
-    lector = csv.DictReader(archivo)
-    for fila in lector:
-        print(fila)  # Imprime cada fila como un diccionario
+# Crear un archivo CSV y escribir en él
+with open("datos.csv", "a", newline="") as archivo:
+    escritor = csv.writer(archivo)
+    pregunta=input("ingresa la pregunta")
+    respuesta= input("ingresa la respuesta")
+    escritor.writerow([pregunta, respuesta])  # Escribir encabezados      # Escribir datos

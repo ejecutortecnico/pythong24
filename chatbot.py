@@ -1,8 +1,10 @@
-respuestas = {
-    "hola":"hola como estas",
-    "ayuda en programacion":"para ayuda en programaion acuda a w3school",
-    "direccion de talento tech":"crr 29 no 50-55"
-}
+import csv
+
+respuestas = {}
+with open("datos.csv", "r") as archivo:
+    lector = csv.DictReader(archivo)
+    for fila in lector:
+        respuestas[fila["preguntas"]]=fila["respuestas"]
 
 def responder(pregunta):
     if pregunta in respuestas:
@@ -19,5 +21,13 @@ while True:
     if pregunta == "salir":
         print("hasta luego")
         break
-    respuesta = responder(pregunta)
-    print(respuesta)
+    if pregunta == "entrenar":
+        with open("datos.csv", "a", newline="") as archivo:
+            escritor = csv.writer(archivo)
+            pregunta=input("ingresa la pregunta")
+            respuesta= input("ingresa la respuesta")
+            escritor.writerow([pregunta, respuesta])
+            break
+    else:
+        respuesta = responder(pregunta)
+        print(respuesta)
