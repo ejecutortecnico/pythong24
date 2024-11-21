@@ -7,7 +7,6 @@ def cargarRespuestas():
         for fila in lector:
             respuestas[fila["preguntas"]]=fila["respuestas"]
 
-
 def entrenar():
     with open("datos.csv", "a", newline="") as archivo:
             escritor = csv.writer(archivo)
