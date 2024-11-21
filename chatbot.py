@@ -1,10 +1,19 @@
 import csv
 
 respuestas = {}
-with open("datos.csv", "r") as archivo:
-    lector = csv.DictReader(archivo)
-    for fila in lector:
-        respuestas[fila["preguntas"]]=fila["respuestas"]
+def cargarRespuestas():
+    with open("datos.csv", "r") as archivo:
+        lector = csv.DictReader(archivo)
+        for fila in lector:
+            respuestas[fila["preguntas"]]=fila["respuestas"]
+
+
+def entrenar():
+    with open("datos.csv", "a", newline="") as archivo:
+            escritor = csv.writer(archivo)
+            pregunta=input("ingresa la pregunta: ")
+            respuesta= input("ingresa la respuesta: ")
+            escritor.writerow([pregunta, respuesta])
 
 def responder(pregunta):
     if pregunta in respuestas:
@@ -15,19 +24,15 @@ def responder(pregunta):
     return respuesta
 
 print("hola soy un chatbot, ecribe salir para terminar")
-
+cargarRespuestas()
 while True:
     pregunta=input("en que puedo ayudarte: ")
     if pregunta == "salir":
         print("hasta luego")
         break
     if pregunta == "entrenar":
-        with open("datos.csv", "a", newline="") as archivo:
-            escritor = csv.writer(archivo)
-            pregunta=input("ingresa la pregunta")
-            respuesta= input("ingresa la respuesta")
-            escritor.writerow([pregunta, respuesta])
-            break
+        entrenar()
+        cargarRespuestas()
     else:
         respuesta = responder(pregunta)
         print(respuesta)
